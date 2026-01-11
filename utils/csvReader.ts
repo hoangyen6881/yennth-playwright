@@ -3,10 +3,15 @@
 // path -> tìm đường dẫn tuyệt đối
 // csv-parse -> để phân tích file csv
 import {readFile} from 'fs/promises'
-import {join} from 'path'
+import path, {join} from 'path'
 import {parse} from 'csv-parse/sync'
 import { promises } from 'dns';
 import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url'
+import { highLightAndScreenshot } from '../utils/screenshot';
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // định nghĩa dữ liệu trong file csv
 export interface LoginData{
