@@ -2,7 +2,10 @@
 // private  final By uploadBtn = By.cssSelector("button.employee-image-action");
 // private final By fileInput = By.cssSelector("input[type='file']");
 import {Page, Locator}  from '@playwright/test'
-import { join } from 'node:path';
+import path, { join } from 'node:path';
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 export class MyInfoPage{
     readonly page: Page;
     // locators
