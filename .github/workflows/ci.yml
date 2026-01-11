@@ -1,0 +1,39 @@
+name: CI - Chạy test
+# điều kiện chạy pipeline
+# đơn giản: trigger chạy test khi push code lên github
+# thực tế
+# tạo pull request -> trigger pineline
+# merge pull request -> trigger pineline
+on:
+  push:
+    branches: [main, master]
+
+jobs: 
+  test: # define step test
+    # chọn môi trường chạy test
+    # ubuntu-latest: hệ điều hành linux
+    # windows-latest: hệ điều hành windows
+    # macos-latest: hệ điều hành macos
+    runs-on: ubuntu-latest
+    steps:
+      # b1: clone source code từ github về máy ảo
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # b2: thiết lập môi trường nodejs
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # cache này giúp tăng tốc độ build playwright
+      # b3: cài đặt các thư viện trong source code playwright
+      - name: Install dependencies
+        run: npm install
+        # b4: cài các browser của playwright
+        #with-deps: cài thêm form default của browser
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      # b5: chạy test
+      - name: Run playwright tests
+        run: npx playwright test
+
+
